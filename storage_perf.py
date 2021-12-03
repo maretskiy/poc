@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3.9
 
 import collections
 import logging
@@ -16,6 +16,8 @@ def main():
         PyListPrepend,
         PyDeque,
         Logger,
+        AppendToFile,
+        AppendToOpenedFile,
         SQliteBufferedList,
         SQliteBufferedReverseList,
         SQliteBufferedDeque,
@@ -116,6 +118,29 @@ class Logger(Testable):
 
     def save_record(self, record):
         self.logger.info(record)
+
+
+class AppendToFile(Testable):
+    """Append lines to file."""
+    def __init__(self):
+        self.storage = self.setup_storage('tmp.file_to_append')
+
+    def save_record(self, record):
+        with open(self.storage, 'a') as f:
+            f.write(f"{record}\n")
+
+
+class AppendToOpenedFile(Testable):
+    """Append lines to opened file."""
+    def __init__(self):
+        self.storage = self.setup_storage('tmp.opened_file_to_append')
+        self.f = open(self.storage, 'w')
+
+    def save_record(self, record):
+        self.f.write(f"{record}\n")
+
+    def finalize(self):
+        self.f.close()
 
 
 class SQlite(Testable):
