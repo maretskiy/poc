@@ -21,7 +21,7 @@ def main():
 
 
 class Testable:
-    USER_ACTIVITIES_NUM = 1000000  #0000
+    USER_ACTIVITIES_NUM = 1000000
     EXPIRE_PERIOD_RATIO = .5
 
     def __init__(self):
